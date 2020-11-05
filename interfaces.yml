@@ -1,0 +1,26 @@
+---
+- name: A few basic filters
+  hosts: localhost
+  gather_facts: no
+
+  vars:
+    interfaces: 
+      - ifDesc: Ethernet0 
+        ifName: PTP_Athena_WAN
+      - ifDesc: Ethernet1
+        ifName: FREE
+      - ifDesc: Ethernet2
+        ifName: PTP_To_Core     
+      - ifDesc: Ethernet3
+        ifName: Public Data Segment - 466lexington - VLAN34
+      - ifDesc: Ethernet4
+        ifName: FREE
+
+  tasks:
+    - name: List all of the interfaces
+      debug:
+              msg: "All the interfaces: '{{ interfaces | map(attribute='ifDesc') | list }}' "
+    - name: This is the second task
+      debug:
+              msg: "All the interface descriptions: '{{ interfaces | map(attribute='ifName') | list }}' "
+
